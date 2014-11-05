@@ -25,7 +25,7 @@ function [Wt, thetaNodeArray, thetaEdgesArray, apmNums] = apm( Xt, numTopics, wo
 %             held out dataset to automatically determine a reasonable
 %             lambda. (Default: 0.1)
 %           ops.numWorkers - The number of parallel workers to attempt to
-%             launch for parallel computation. (Default: 1)
+%             launch for parallel computation. (Default: 8)
 %           ops.isMixture - If set to true, fit a mixture of Poisson MRFs
 %             instead of an admixture (i.e. admixture weights will be
 %             indicator vectors). (Default: false)

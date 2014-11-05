@@ -9,7 +9,7 @@ classdef APMNums < handle
         %% APM Standard Options
         lambda = 'trace'; % Regularization parameter. Either a number or 'trace' which will train multiple models with different values of lambda. (e.g. 1, 0.01)
         heldOutPercent = 0.1; % Percentage of data for held-out dataset so that lambda can be chosen automatically (e.g. 0.1 means 10% held out)
-        numWorkers = 1; % Number of workers for parallel execution (NOTE: Must have MATLAB Parallel Computing toolbox.)
+        numWorkers = 8; % Number of workers for parallel execution (NOTE: Must have MATLAB Parallel Computing toolbox.)
         isMixture = false; % If true, fits a mixture instead (i.e. admixture weights will be indicator vectors)
         maxTraceIter = 15; % Number of different lambda to try when using lam = 'trace'
         
