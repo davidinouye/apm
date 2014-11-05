@@ -140,11 +140,11 @@ while traceIter <= apmNums.maxTraceIter
         if(apmNums.trace && iter == apmNums.maxAlternateIter); apmNums.independent = false; end;
         
         %% Compute k PMRF components with fixed W
-        tic;
+        tstart = tic;
         [thetaNodeArray, thetaEdgesArray, ~, tempMaxGradient] = pmrfs( Zt, Wt, thetaNodeArray, thetaEdgesArray, apmNums);
         
         %% PMRFs post processing
-        apmTimeOneIter = toc;
+        apmTimeOneIter = toc(tstart);
         pmrfTime = pmrfTime + apmTimeOneIter;
         apmNums.outerAfter = evalObj(Zt, Wt, thetaNodeArray, thetaEdgesArray, apmNums); % Needed to implicitly compute regularization/Lasso term for objective value later
         % Set maxGradient during first trace iteration (i.e. during independent phase using gradient)
@@ -163,9 +163,9 @@ while traceIter <= apmNums.maxTraceIter
         apmNums.outerBefore = apmNums.outerAfter;
         if(apmNums.k > 1)
             Zt = Zt'; Wt = Wt'; % Transpose inplace for computational reasons
-            tic;
+            tstart = tic;
             [Wt, ~] = admixweights(Zt(2:end,:), Wt, thetaNodeArray, thetaEdgesArray, apmNums);
-            admixWeightsTimeOneIter = toc;
+            admixWeightsTimeOneIter = toc(tstart);
             Zt = Zt'; Wt = Wt'; % Reverse transpose inplace
             apmNums.outerAfter = evalObj(Zt, Wt, thetaNodeArray, thetaEdgesArray, apmNums);
         else

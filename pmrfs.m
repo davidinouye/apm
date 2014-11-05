@@ -77,7 +77,7 @@ function [Phi, fPhi, maxGradient, fPhi0] = pmrfsingle(Zt, Wt, s, Phi, apmNums)
 % maxGradient Maximum gradient (used for determining first lambda when
 %           tracing through different lambdas
 % fPhi0     Initial function value
-tic;
+tstart = tic;
 
 %% Compute initial Zsum, gamVec, and objective
 Zsum = full(bsxfun(@times, Zt, Zt(:,s+1))'*Wt);
@@ -237,7 +237,7 @@ while outerIter <= outerMaxIter
     outerIter = outerIter + 1;
 end
 
-singleVariableTime = toc;
+singleVariableTime = toc(tstart);
 
 %% Post-processing and debug output
 % Output debug information
