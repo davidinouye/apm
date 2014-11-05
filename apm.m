@@ -183,18 +183,17 @@ while traceIter <= apmNums.maxTraceIter
             apmNums.outerAfter = apmNums.innerAfter; % Use inner objective function value
         end
         
-        %% Check convergence condition
+        %% Check convergence condition based on relative difference in objective
+        %  Also mark convergence if only 1 topic (i.e. single PMRF iteration is 
+        %   sufficient since admixture weights not changing)
         relativeDiffObjective = abs((apmNums.prevOuterAfter - apmNums.outerAfter)/apmNums.prevOuterAfter);
-        if(relativeDiffObjective < apmNums.convergeThreshOuter)
+        if(relativeDiffObjective < apmNums.convergeThreshOuter || apmNums.k == 1)
             % If it is independent and has converged, do one more iteration so that
             %  the full gradient is calculated and hence a good starting position for
             %  tracing through lambda is obtained
             if(apmNums.trace && apmNums.independent); apmNums.independent = false; 
             else isConverged = true; end;
         end
-        % Also mark convergence if only 1 topic (i.e. single PMRF iteration is 
-        %  sufficient since admixture weights not changing)
-        if(apmNums.k == 1); isConverged = true; end
         
         %% Print out information for current iteration
         % Compute +nnz
