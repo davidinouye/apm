@@ -18,5 +18,6 @@ fprintf('Training APM with 3 topics on subset of Grolier encyclopedia data\n');
 ops = [];
 ops.baseFilename = 'apm-3topics';
 ops.numWorkers = 12; % Parallel execution with 12 workers (NOTE: Must have Parallel Computing Toolbox)
+ops.verbosity = 0; % Only show main outer iterations rather than output for each variable subproblem
 numTopics = 3;
 [Wt, thetaNodeArray, thetaEdgesArray] = apm( grolier, numTopics, words, ops );
