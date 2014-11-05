@@ -14,7 +14,7 @@ classdef APMNums < handle
         maxTraceIter = 15; % Number of different lambda to try when using lam = 'trace'
         
         %% APM Other Options
-        verbosity = 0; % Amount of output to show.
+        verbosity = 2; % Amount of output to show.
         % 0 - Only show main iteration and errors
         % 1 - Also show warnings
         % 2 - Also show some output for each PMRF subproblem
