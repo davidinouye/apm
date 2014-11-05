@@ -192,6 +192,9 @@ while traceIter <= apmNums.maxTraceIter
             if(apmNums.trace && apmNums.independent); apmNums.independent = false; 
             else isConverged = true; end;
         end
+        % Also mark convergence if only 1 topic (i.e. single PMRF iteration is 
+        %  sufficient since admixture weights not changing)
+        if(apmNums.k == 1); isConverged = true; end
         
         %% Print out information for current iteration
         % Compute +nnz
