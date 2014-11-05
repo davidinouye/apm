@@ -229,12 +229,20 @@ while traceIter <= apmNums.maxTraceIter
         if((isConverged || iter == apmNums.maxAlternateIter) && (apmNums.heldOutPercent == 0 || heldOutFinalIter))
             %% Save all variables every iteration or every last iteration depending on saveVerbosity
             if(apmNums.saveVerbosity >= 1)
-                save([apmNums.baseDir '/mat/' apmNums.baseFilename '.mat']);
+                matFilename = [apmNums.baseDir '/mat/' apmNums.baseFilename '.mat'];
+                fprintf('Saving model (i.e. Wt, thetaNodeArray, thetaEdgesArray, apmNums) to file: %s\n', matFilename);
+                if(apmNums.debug)
+                    save(matFilename);
+                else
+                    save(matFilename, 'Wt', 'thetaNodeArray', 'thetaEdgesArray', 'apmNums');
+                end
             end
 
             %% Save topic graphs
             if(apmNums.saveVerbosity >= 2)
-                savegexf([apmNums.baseDir '/gexf/' apmNums.baseFilename], thetaNodeArray, thetaEdgesArray, words);
+                gexfFilename = [apmNums.baseDir '/gexf/' apmNums.baseFilename];
+                fprintf('Saving model as GEXF file to be opened in Gephi <gephi.org>: %s\n', [gexfFilename '.gexf']);
+                savegexf(gexfFilename, thetaNodeArray, thetaEdgesArray, words);
             end
         end
 
