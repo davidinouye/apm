@@ -296,8 +296,7 @@ while traceIter <= apmNums.maxTraceIter
                 % On final trace iteration or when held-out likelihood is 50% greater than best,
                 % reset to be bestModel parameters
                 if(traceIter == apmNums.maxTraceIter || apmNumsHeldOut.innerAfter > 1.5*bestModel.apmNums.innerAfter)
-                    fprintf('Best model being set with the following parameters for final training:\n');
-                    disp(bestModel.apmNums);
+                    fprintf('Best lambda based on held-out documents was lambda = %g.\nThis lambda being set for final training with all data.\n',bestModel.apmNums.lambda);
                     
                     % Reset data and parameters for final model fitting
                     Zt = [Zt; ZtHeldOut];
