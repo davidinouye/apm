@@ -123,7 +123,7 @@ while traceIter <= apmNums.maxTraceIter
     if(apmNums.trace && traceIter > 1)
         % Starting value is from the maximum gradient (thus if lambda is
         % greater than maxGradient the model will stay independent)
-        apmNums.lambda = apmNums.maxGradient*0.5^(traceIter-2); % Decrease exponentially 
+        apmNums.lambda = apmNums.maxGradient*0.5^(traceIter-1); % Decrease exponentially 
         apmNums.independent = false;
     elseif(traceIter > 1)
         break; % Skip other iterations if non-trace
