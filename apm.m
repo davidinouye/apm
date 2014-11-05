@@ -291,8 +291,9 @@ while traceIter <= apmNums.maxTraceIter
                     bestModel.apmNums = apmNumsHeldOut;
                 end
                 
-                % On final trace iteration, reset to be bestModel parameters
-                if(traceIter == apmNums.maxTraceIter)
+                % On final trace iteration or when held-out likelihood is 50% greater than best,
+                % reset to be bestModel parameters
+                if(traceIter == apmNums.maxTraceIter || apmNumsHeldOut.innerAfter > 1.5*bestModel.apmNums.innerAfter)
                     fprintf('Best model being set with the following parameters for final training:\n');
                     disp(bestModel.apmNums);
                     
@@ -313,6 +314,7 @@ while traceIter <= apmNums.maxTraceIter
                     apmNums.lassoTerm = NaN; apmNums.outerBefore = NaN; apmNums.innerBefore = NaN; apmNums.innerAfter = NaN;
                     
                     % Do one more trace iteration to train final model
+                    traceIter = apmNums.maxTraceIter;
                     apmNums.maxTraceIter = apmNums.maxTraceIter + 1;
                     heldOutFinalIter = true;
                 end
