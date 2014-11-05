@@ -34,8 +34,14 @@ PhiTensor = theta2phi(thetaNodeArray, thetaEdgesArray, apmNums);
 
 %% Main loop
 if(apmNums.verbosity >= 2); fprintf('Training component Poisson MRFs\n'); end
-parfor (s = 1:p, apmNums.numWorkers)
-    [PhiTensor(:,:,s), fPhi(s), maxGradientVec(s), fPhi0(s)] = pmrfsingle(Zt, Wt, s, PhiTensor(:,:,s), apmNums);
+if(apmNums.numWorkers > 1)
+    parfor (s = 1:p, apmNums.numWorkers)
+        [PhiTensor(:,:,s), fPhi(s), maxGradientVec(s), fPhi0(s)] = pmrfsingle(Zt, Wt, s, PhiTensor(:,:,s), apmNums);
+    end
+else
+    for s = 1:p
+        [PhiTensor(:,:,s), fPhi(s), maxGradientVec(s), fPhi0(s)] = pmrfsingle(Zt, Wt, s, PhiTensor(:,:,s), apmNums);
+    end
 end
 
 %% Post processing

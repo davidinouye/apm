@@ -39,8 +39,14 @@ for offset = 0:maxBatchSize:n
     end
 
     %% Main parallel loop
-    parfor (i = 1:batchSize, apmNums.numWorkers)
-        [W(:,offset+i), fw(offset+i), fw0(offset+i)] = admixsingle(W(:,offset+i), X(:,offset+i), PiTensor(:,:,i), offset+i, apmNums);
+    if(apmNums.numWorkers > 1)
+        parfor (i = 1:batchSize, apmNums.numWorkers)
+            [W(:,offset+i), fw(offset+i), fw0(offset+i)] = admixsingle(W(:,offset+i), X(:,offset+i), PiTensor(:,:,i), offset+i, apmNums);
+        end
+    else
+        for i = 1:batchSize
+            [W(:,offset+i), fw(offset+i), fw0(offset+i)] = admixsingle(W(:,offset+i), X(:,offset+i), PiTensor(:,:,i), offset+i, apmNums);
+        end
     end
 end
 
