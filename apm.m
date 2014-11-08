@@ -120,12 +120,12 @@ traceIter = 1; heldOutFinalIter = false;
 fprintf('Starting iterations\n');
 while traceIter <= apmNums.maxTraceIter
     % Update lambda for tracing
-    if(apmNums.trace && traceIter > 1)
+    if(apmNums.trace && traceIter > 1 && ~heldOutFinalIter)
         % Starting value is from the maximum gradient (thus if lambda is
         % greater than maxGradient the model will stay independent)
         apmNums.lambda = apmNums.maxGradient*0.5^(traceIter-1); % Decrease exponentially 
         apmNums.independent = false;
-    elseif(traceIter > 1)
+    elseif(~apmNums.trace && traceIter > 1)
         break; % Skip other iterations if non-trace
     end
     

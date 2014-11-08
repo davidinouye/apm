@@ -242,7 +242,7 @@ singleVariableTime = toc(tstart);
 %% Post-processing and debug output
 % Output debug information
 checkobjective(fPhi0, fPhi, 'Not decreasing after pmrfsingle', 'decreasing');
-outputStr = sprintf('s = %d, newtonIter = %d, stepSize = %g, obj = %g, rel. diff = %g, +nnz = %d, -nnz = %d, time = %g s', s, outerIter, stepSize, fPhi, relativeDiff, full(nnz(Phi(2:end,:)>0)), full(nnz(Phi(2:end,:)<0)), singleVariableTime);
+outputStr = sprintf('s = %d, newtonIter = %d, stepSize = %g, obj = %g, rel. diff = %g, lambda = %g, +nnz = %d, -nnz = %d, time = %g s', s, outerIter, stepSize, fPhi, relativeDiff, apmNums.lambda, full(nnz(Phi(2:end,:)>0)), full(nnz(Phi(2:end,:)<0)), singleVariableTime);
 if(outerIter >= outerMaxIter && apmNums.verbosity >= 1)
     fprintf('  Warning newtonIterMax reached for s = %d\n', s);
     if(apmNums.verbosity >= 3 || apmNums.debug)
