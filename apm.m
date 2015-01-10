@@ -92,6 +92,11 @@ if(apmNums.heldOutPercent > 0)
     splitIdx = round(apmNums.heldOutPercent*apmNums.n);
     rng(rngSettings);
 
+    % Final permutation and reverse to reorder at last step
+    finalPerm = [permutation((splitIdx+1):end) permutation(1:splitIdx)];
+    revFinalPerm = zeros(size(finalPerm));
+    revFinalPerm(finalPerm) = 1:length(finalPerm);
+
     % Create ZtTune and reset Zt
     ZtHeldOut = Zt(permutation(1:splitIdx),:);
     Zt = Zt(permutation((splitIdx+1):end),:);
@@ -309,6 +314,7 @@ while traceIter <= apmNums.maxTraceIter
                     % Reset data and parameters for final model fitting
                     Zt = [Zt; ZtHeldOut];
                     Wt = [bestModel.Wt; bestModel.WtHeldOut];
+                    Wt = Wt(revFinalPerm,:); % Reverse the permutation
                     apmNums.n = size(Zt,1);
                     n = apmNums.n;
                     thetaNodeArray = bestModel.thetaNodeArray;
