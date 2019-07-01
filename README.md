@@ -26,5 +26,4 @@ Developer
 =========
 
 David I. Inouye  
-Website: http://cs.utexas.edu/~dinouye  
-Email: dinouye@cs.utexas.edu
+Website: https://www.davidinouye.com  
